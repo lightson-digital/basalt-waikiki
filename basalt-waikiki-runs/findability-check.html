@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Findability Check · Basalt Waikiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Source+Serif+4:ital,wght@1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --heading: #061b31;
+    --label: #273951;
+    --body: #273951;
+    --accent: #533afd;
+    --accent-soft: #f3f1ff;
+    --border: #e5edf5;
+    --surface: #ffffff;
+    --surface-alt: #fafbfd;
+    --status-good: #108c3d;
+    --status-good-bg: rgba(21,190,83,0.12);
+    --status-mid: #9b6829;
+    --status-mid-bg: rgba(155,104,41,0.10);
+    --status-miss: #b42318;
+    --status-miss-bg: rgba(180,35,24,0.08);
+    --shadow-feature: rgba(50,50,93,0.10) 0px 12px 20px 0px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
+    font-feature-settings: "ss01";
+    font-weight: 300;
+    font-size: 17px;
+    color: var(--body);
+    background: var(--surface);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 64px 32px 96px; }
+  .stamp {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(83,58,253,0.08);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent);
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-family: 'Inter', sans-serif; font-weight: 300;
+    font-size: 44px; line-height: 1.10; letter-spacing: -1.2px;
+    color: var(--heading); margin: 0 0 4px;
+  }
+  .lede { font-size: 20px; font-weight: 300; color: var(--body); margin: 0 0 12px; max-width: 640px; line-height: 1.5; }
+  h2 {
+    font-family: 'Inter', sans-serif; font-weight: 300;
+    font-size: 26px; line-height: 1.12; letter-spacing: -0.26px;
+    color: var(--heading); margin: 56px 0 20px;
+  }
+  .section-meta {
+    font-size: 13px; color: var(--body); margin: -14px 0 24px;
+  }
+  .caveat {
+    font-size: 13px; color: var(--body); margin: 8px 0 24px;
+    padding: 12px 16px; background: var(--surface-alt);
+    border-left: 3px solid var(--accent); border-radius: 4px;
+    line-height: 1.5;
+  }
+
+  /* Prompt cards */
+  .prompts { display: flex; flex-direction: column; gap: 12px; }
+  .prompt-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 26px;
+    background: var(--surface);
+  }
+  .prompt-card.featured {
+    box-shadow: var(--shadow-feature);
+    border-color: var(--border);
+  }
+  .prompt-header {
+    display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px;
+  }
+  .prompt-text {
+    flex: 1;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 16px; font-weight: 400; line-height: 1.5;
+    color: var(--label);
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.04em;
+    padding: 4px 10px; border-radius: 4px;
+    white-space: nowrap;
+  }
+  .status.good { background: var(--status-good-bg); color: var(--status-good); }
+  .status.mid  { background: var(--status-mid-bg);  color: var(--status-mid); }
+  .status.miss { background: var(--status-miss-bg); color: var(--status-miss); }
+  .status .glyph { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+  .prompt-synthesis {
+    font-size: 16px; line-height: 1.6; color: var(--body); margin: 0;
+  }
+  .prompt-meta {
+    margin-top: 10px; font-size: 13px; color: var(--body); line-height: 1.5;
+  }
+  .prompt-meta strong { color: var(--label); font-weight: 400; }
+
+  /* Snippet preview */
+  .snippet {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 20px 24px; background: var(--surface);
+  }
+  .snippet .url-line { font-size: 12px; color: #006621; margin: 0 0 4px; }
+  .snippet .title { font-size: 18px; color: #1a0dab; font-weight: 400; margin: 0 0 6px; }
+  .snippet .desc { font-size: 13px; color: #4d5156; line-height: 1.45; margin: 0; }
+  .snippet-aside {
+    margin-top: 14px; font-size: 13px; color: var(--body);
+  }
+  .snippet-aside strong { color: var(--label); font-weight: 400; }
+
+  /* Schema two-column */
+  .schema-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  .schema-col { padding: 22px 26px; }
+  .schema-col + .schema-col { border-left: 1px solid var(--border); }
+  .schema-col h3 {
+    font-size: 15px; font-weight: 400; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--label); margin: 0 0 14px;
+  }
+  .schema-list { list-style: none; padding: 0; margin: 0; }
+  .schema-list li {
+    font-family: 'JetBrains Mono', monospace; font-size: 16px;
+    color: var(--label); padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+  .schema-list li:last-child { border-bottom: none; }
+  .schema-list .miss { color: var(--body); }
+
+  /* Fixes */
+  .fixes { display: flex; flex-direction: column; gap: 14px; counter-reset: fix; }
+  .fix {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 24px 28px; background: var(--surface);
+    display: grid; grid-template-columns: 36px 1fr; gap: 18px;
+    align-items: start;
+  }
+  .fix.featured { box-shadow: var(--shadow-feature); }
+  .fix .num {
+    font-family: 'Inter', sans-serif; font-weight: 300; font-size: 32px;
+    line-height: 1; color: var(--accent); letter-spacing: -0.4px;
+  }
+  .fix .body h3 {
+    font-family: 'Inter', sans-serif; font-weight: 300;
+    font-size: 22px; line-height: 1.20; letter-spacing: -0.22px;
+    color: var(--heading); margin: 0 0 10px;
+  }
+  .fix .why {
+    font-size: 16px; color: var(--body); margin: 0 0 14px; line-height: 1.6;
+  }
+  .fix .where {
+    font-size: 16px; color: var(--label); margin: 0 0 14px; line-height: 1.5;
+  }
+  .fix .where strong { font-weight: 400; color: var(--accent); }
+  .pill-row { display: flex; gap: 8px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.04em;
+    padding: 4px 10px; border-radius: 4px;
+    background: var(--surface-alt); color: var(--label);
+    border: 1px solid var(--border);
+  }
+  .pill .key { color: var(--body); }
+
+  /* Tabular */
+  .tnum { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+
+  /* Footer */
+  .footer {
+    margin-top: 72px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: #425466;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .wordmark {
+    font-family: 'Inter', sans-serif; font-weight: 400;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    font-size: 11px; color: var(--label);
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 40px 20px 64px; }
+    h1 { font-size: 36px; letter-spacing: -0.6px; }
+    .schema-grid { grid-template-columns: 1fr; }
+    .schema-col + .schema-col { border-left: none; border-top: 1px solid var(--border); }
+    .fix { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Discover · Findability Check</p>
+  <h1>Basalt Waikiki</h1>
+  <p class="lede">Sit-down restaurant with charcoal pancakes, 2pm to 5pm happy hour, and a real Honolulu chef, on the ground floor of the Hyatt Centric Waikiki Beach. Are travelers finding you when they ask an AI?</p>
+  <span class="stamp">Pre-Demo Backup · 2026-05-11</span>
+
+  <h2>What travelers asked, what AI answered</h2>
+  <p class="section-meta">Five prompts a real traveler would type. Synthesized from public web signal: Honolulu Magazine, Hawaii News Now, Frolic Hawaii, TripAdvisor, OpenTable, Yelp, NextStopHawaii, Vacation-Waikiki, Nate Eats Hawaii.</p>
+  <p class="caveat">AI Overviews vary by user history, location, and time of day. Treat these five simulations as directional, not deterministic.</p>
+  <div class="prompts">
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-text">Best breakfast spot in Waikiki</div>
+        <span class="status mid"><span class="glyph">~</span> Category only</span>
+      </div>
+      <p class="prompt-synthesis">An AI synthesizing today would lead with Aloha Kitchen, Goofy Cafe, Eggs 'n Things, Cream Pot, and Island Vintage Coffee. Basalt shows up in the "bonus tier" of NextStopHawaii's roundup and in Vacation-Waikiki's 2026 guide, but it does not land in the top-3 for a generic breakfast prompt. The chef pedigree and the sit-down format only surface when the traveler adds "upscale," "sit-down," or "chef" to the search.</p>
+      <p class="prompt-meta"><strong>Signal:</strong> NextStopHawaii "7 Best Breakfast Spots in Waikiki" (Basalt in bonus tier, not top-7). Vacation-Waikiki 2026 guide. TripAdvisor breakfast filter (Basalt #19 of 1,749 Honolulu restaurants, ranking strong but generic).</p>
+    </div>
+
+    <div class="prompt-card featured">
+      <div class="prompt-header">
+        <div class="prompt-text">Where can I get great pancakes in Honolulu</div>
+        <span class="status good"><span class="glyph">✓</span> Named first</span>
+      </div>
+      <p class="prompt-synthesis">An AI would name Basalt first. Honolulu Magazine's "All Our Favorite Pancakes in Honolulu" puts the charcoal buttermilk pancake at the top of the list above Cinnamon's, Eggs 'n Things, Boots & Kimo's, and Moke's. Modern Luxury's "13 Best Pancakes in Honolulu" includes it. The leak: the citation goes to the magazine, not to basaltwaikiki.com, because the menu PDFs are blocked by your own robots.txt and the homepage title tag does not include the word "pancakes."</p>
+      <p class="prompt-meta"><strong>Signal:</strong> Honolulu Magazine pancake roundup (#1 slot). Frolic Hawaii. Modern Luxury Hawaii. The hero dish does the AI work the homepage does not.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-text">Where do locals eat in Waikiki</div>
+        <span class="status mid"><span class="glyph">~</span> Buried</span>
+      </div>
+      <p class="prompt-synthesis">Honolulu Magazine's "Where locals eat in Waikiki" list and the kamaʻāina deals roundup lead with Arancino (20% off), Japengo, Suntory, Kona Coffee Purveyors, Kaneko Hannosuke. Basalt's 20% kamaʻāina discount, launched July 2025 and the first in eight years, gets a paragraph in the Lance Kosaka feature but is absent from the locals-eat-here listicle that AI synthesis quotes for this exact prompt. The biggest unspent asset in the brand.</p>
+      <p class="prompt-meta"><strong>Signal:</strong> Honolulu Magazine "Where locals eat in Waikiki," Honolulu Magazine "Kamaʻāina Deals." Basalt mentioned in the chef profile, not in the roundup.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-text">Best happy hour Waikiki</div>
+        <span class="status mid"><span class="glyph">~</span> Absent from the listicles</span>
+      </div>
+      <p class="prompt-synthesis">Nate Eats Hawaii 2026, NextStopHawaii, Menehune Grille, OahuTripPlanners 2026 all rank Duke's, Hula Grill, Sky Waikiki, Signature Prime, Tommy Bahama, Mai Tai's. Basalt is on none of them. Yet Frolic Hawaii ran a "best happy hour burger" feature and Hawaii News Now ran a 3-part happy hour segment on Basalt. The high-trust press is there; the listicle-tier coverage that AIs quote for "best happy hour" queries is not. AIs lead with Duke's because Duke's owns the listicles.</p>
+      <p class="prompt-meta"><strong>Signal:</strong> Nate Eats Hawaii happy hour 2026 (Basalt absent). NextStopHawaii "5 Best Happy Hours in Waikiki" (Basalt absent). Frolic Hawaii happy hour burger feature (Basalt named, but old). Hawaii News Now 3-part segment (high-trust, narrow reach).</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-text">Basalt Waikiki</div>
+        <span class="status good"><span class="glyph">✓</span> Named cleanly</span>
+      </div>
+      <p class="prompt-synthesis">The brand is recognized as a single entity: OpenTable (4.7 of 5, 2,218+ reviews), TripAdvisor (4.4 of 5, 445 reviews, Travelers' Choice 2025, ranked #19 of 1,749 Honolulu restaurants), Yelp (6,400+ photos, 2,000+ reviews), Honolulu Magazine, Hawaii News Now, Frolic Hawaii, KHON2, Forbes, Food & Wine, TBS Japan all surface. The leak: OpenTable and TripAdvisor outrank basaltwaikiki.com on the branded query, and the homepage title tag does not include any of the four things press has spent eight years teaching travelers to associate with the brand: pancakes, Lance Kosaka, happy hour, kamaʻāina.</p>
+      <p class="prompt-meta"><strong>Signal:</strong> Brand entity is solid. The friction is title-tag and schema, not awareness.</p>
+    </div>
+
+  </div>
+
+  <h2>Google snippet, branded query</h2>
+  <div class="snippet">
+    <p class="url-line">basaltwaikiki.com</p>
+    <p class="title">Basalt Waikiki Restaurant - Inside Dukes Lane Market And Eatery</p>
+    <p class="desc">Basalt is a contemporary &amp; refined yet casual restaurant that features local cuisine ranging from comfort food favorites to finer dining selections.</p>
+  </div>
+  <p class="snippet-aside">
+    <strong>OTAs above your site on branded query:</strong> Yes. OpenTable's listing (4.7 of 5, 2,218+ reviews) and TripAdvisor's review page (Travelers' Choice 2025, #19 of 1,749 Honolulu restaurants) both rank on page 1 for "Basalt Waikiki." A guest typing the brand name can book through OpenTable without ever hitting basaltwaikiki.com.<br>
+    <strong>Google Business Profile knowledge panel:</strong> Visible on branded search (rating, hours, address surface). Confirm category reads "Restaurant" or "New American" rather than "Bar" or generic. Confirm photos are current and reviews are responded to.<br>
+    <strong>AI bots in robots.txt:</strong> All HTML pages allowed. No explicit block on GPTBot, ClaudeBot, PerplexityBot, anthropic-ai, or Google-Extended. Critical exception: `Disallow: /*.pdf$` blocks every menu PDF (breakfast, lunch, dinner, happy hour, wine, dessert, kids) from every crawler. The actual menu text is invisible to LLMs.
+  </p>
+
+  <h2>Schema.org structured data</h2>
+  <p class="section-meta">JSON-LD is how LLMs and Google read your site without guessing. Pulled from the static HTML on basaltwaikiki.com, /menus, and /contact.</p>
+  <div class="schema-grid">
+    <div class="schema-col">
+      <h3>Present</h3>
+      <ul class="schema-list">
+        <li>WebPage (Yoast default)</li>
+        <li>WebSite + SearchAction (Yoast default)</li>
+        <li>BreadcrumbList (Yoast default)</li>
+        <li>ImageObject (Yoast default)</li>
+      </ul>
+    </div>
+    <div class="schema-col">
+      <h3>Missing</h3>
+      <ul class="schema-list">
+        <li class="miss">Restaurant / FoodEstablishment</li>
+        <li class="miss">LocalBusiness</li>
+        <li class="miss">Menu (per daypart)</li>
+        <li class="miss">FAQPage</li>
+        <li class="miss">Review / AggregateRating</li>
+        <li class="miss">Person (Chef Lance Kosaka)</li>
+        <li class="miss">Offer (kamaʻāina, happy hour)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>3 fixes, ranked by impact</h2>
+  <div class="fixes">
+
+    <div class="fix featured">
+      <div class="num tnum">01</div>
+      <div class="body">
+        <h3>Add Restaurant JSON-LD to the homepage with address, hours, price range, cuisine, and menu reference</h3>
+        <p class="why">Today the only schema you publish is Yoast's WebPage and WebSite defaults. An AI answering "best breakfast spot in Waikiki," "where do locals eat in Waikiki," or the branded query has no machine-readable record that you are a Restaurant, that you serve breakfast through dinner, that you are closed Tue/Wed, that the price range is $$ to $$$, or that the cuisine is New American with Hawaiʻi-regional accents. Restaurant schema with openingHoursSpecification, priceRange, servesCuisine, acceptsReservations, and hasMenu is the one fix that closes three prompts at once.</p>
+        <p class="where"><strong>Where:</strong> Homepage `&lt;head&gt;`. Mirror the address, geo, telephone, and hours from /contact (fix the "Lunch: 11:00pm" typo in the visible HTML while you are in there).</p>
+        <div class="pill-row">
+          <span class="pill"><span class="key">Effort</span> Low</span>
+          <span class="pill"><span class="key">Impact</span> High</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fix featured">
+      <div class="num tnum">02</div>
+      <div class="body">
+        <h3>Move every menu off PDF onto HTML pages, then unblock them in robots.txt</h3>
+        <p class="why">Your robots.txt blocks `*.pdf$`, which means GPTBot, ClaudeBot, PerplexityBot, and Google-Extended cannot read the breakfast, lunch, dinner, happy hour, wine, dessert, or kids menus. An AI answering "where can I get great pancakes in Honolulu" can quote Honolulu Magazine's review of the charcoal pancake but cannot quote your actual dish name, price, or description because the source file is hidden behind a disallow rule. HTML menus with Menu schema (`MenuSection` per daypart, `MenuItem` per dish, `Offer` per price) make every dish quotable by name.</p>
+        <p class="where"><strong>Where:</strong> /menus replaces PDF links with HTML pages per daypart (breakfast, lunch, happy hour, dinner). Add `Menu` schema. Remove `Disallow: /*.pdf$` from robots.txt, or leave it and rely on the HTML versions as the canonical source.</p>
+        <div class="pill-row">
+          <span class="pill"><span class="key">Effort</span> Mid</span>
+          <span class="pill"><span class="key">Impact</span> High</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="num tnum">03</div>
+      <div class="body">
+        <h3>Rewrite the homepage title tag and meta description to lead with pancakes, Kosaka, happy hour, and kamaʻāina</h3>
+        <p class="why">Current title is "Basalt Waikiki Restaurant - Inside Dukes Lane Market And Eatery." It buries the four things eight years of press has taught travelers to associate with the brand. Rewrite to: "Basalt Waikiki · Charcoal Pancakes, Happy Hour, Dinner by Chef Lance Kosaka." New meta: "Sit-down breakfast, brunch, and dinner in Waikiki. Famous charcoal buttermilk pancakes, 2pm to 5pm happy hour, modern New American by Chef Lance Kosaka (17 years with Alan Wong). 20% kamaʻāina discount. Inside Dukes Lane Market & Eatery." Closes the breakfast prompt, the locals-eat-here prompt, and the happy hour prompt by putting the brand's actual proof points in the snippet AI Overviews extract.</p>
+        <p class="where"><strong>Where:</strong> Homepage title + meta description (Yoast SEO settings). Apply the same pattern to /menus, /in-the-kitchen, /lance-kosaka, and /contact.</p>
+        <div class="pill-row">
+          <span class="pill"><span class="key">Effort</span> Low</span>
+          <span class="pill"><span class="key">Impact</span> High</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>Hospitality Business Skills · github.com/lightson-digital/hospitality-business-skills</span>
+    <a href="https://lightson.co" target="_blank" rel="noopener"><span class="wordmark">Powered by Lights On</span></a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking Edge · Basalt Waikiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --heading: #061b31;
+    --label: #273951;
+    --body: #273951;
+    --accent: #533afd;
+    --border: #e5edf5;
+    --border-soft: #f0f4f9;
+    --bg: #ffffff;
+    --success-bg: rgba(21,190,83,0.10);
+    --success-text: #108c3d;
+    --lemon-bg: rgba(155,104,41,0.10);
+    --lemon-text: #9b6829;
+    --ruby-bg: rgba(234,34,97,0.10);
+    --ruby-text: #ea2261;
+    --shadow-feature: rgba(50,50,93,0.10) 0px 12px 20px 0px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    max-width: 1040px;
+    margin: 40px auto;
+    padding: 0 32px;
+    color: var(--heading);
+    background: var(--bg);
+    line-height: 1.55;
+    font-feature-settings: "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  .stamp {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); background: rgba(83,58,253,0.08);
+    border-radius: 999px; padding: 4px 10px; margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 44px; font-weight: 300; letter-spacing: -1.2px;
+    line-height: 1.1; margin: 0 0 4px; color: var(--heading);
+  }
+  .sub {
+    font-size: 20px; font-weight: 300; color: var(--body);
+    margin-bottom: 12px; max-width: 720px; line-height: 1.5;
+  }
+  .section-label {
+    display: inline-block; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  h2 {
+    font-size: 24px; font-weight: 300; letter-spacing: -0.3px;
+    line-height: 1.15; color: var(--heading); margin: 0 0 18px;
+  }
+  .card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 28px 32px; background: var(--bg); margin-bottom: 20px;
+  }
+  .card.featured { box-shadow: var(--shadow-feature); }
+  .note {
+    font-size: 16px; color: var(--body); line-height: 1.6; margin: 0 0 16px;
+  }
+  .platforms {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px;
+  }
+  .platform {
+    padding: 14px 12px; border: 1px solid var(--border);
+    border-radius: 6px; text-align: left;
+  }
+  .platform .name {
+    font-size: 11px; color: var(--label); letter-spacing: 0.10em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .platform .rating {
+    font-size: 24px; font-weight: 300; color: var(--heading);
+    font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 4px;
+  }
+  .platform .count { font-size: 13px; color: var(--body); font-variant-numeric: tabular-nums; }
+  .platform .scrape { font-size: 10px; color: var(--body); margin-top: 4px; font-style: italic; }
+  .theme {
+    padding: 18px 0; border-bottom: 1px solid var(--border-soft);
+  }
+  .theme:last-child { border-bottom: none; }
+  .theme:first-child { padding-top: 4px; }
+  .theme .head {
+    display: flex; justify-content: space-between;
+    align-items: baseline; gap: 16px; margin-bottom: 8px;
+  }
+  .theme .name { font-size: 16px; font-weight: 400; color: var(--heading); }
+  .theme .meta { font-size: 12px; color: var(--body); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .chip {
+    display: inline-block; font-size: 10px; font-weight: 400;
+    padding: 2px 8px; border-radius: 4px; margin-left: 6px;
+  }
+  .chip.pos { background: var(--success-bg); color: var(--success-text); }
+  .chip.mix { background: var(--lemon-bg); color: var(--lemon-text); }
+  .chip.neg { background: var(--ruby-bg); color: var(--ruby-text); }
+  .quote {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic; font-size: 16px; color: var(--label);
+    line-height: 1.55; padding: 4px 0 4px 16px;
+    border-left: 2px solid var(--accent); margin-top: 6px;
+  }
+  .quote .attr {
+    font-family: 'Inter', sans-serif; font-style: normal;
+    font-size: 12px; color: var(--body); display: block; margin-top: 6px;
+  }
+  .gap {
+    padding: 14px 0; border-bottom: 1px solid var(--border-soft);
+  }
+  .gap:last-child { border-bottom: none; }
+  .gap:first-child { padding-top: 4px; }
+  .gap .q { font-size: 16px; color: var(--heading); font-weight: 400; }
+  .gap .a { font-size: 16px; color: var(--body); margin-top: 4px; line-height: 1.55; }
+  .parity { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .parity-col h3 {
+    font-size: 15px; font-weight: 400; letter-spacing: 0.04em;
+    color: var(--label); margin: 0 0 12px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .parity-item {
+    font-size: 16px; color: var(--heading); padding: 10px 0;
+    border-bottom: 1px solid var(--border-soft); line-height: 1.5;
+  }
+  .parity-item:last-child { border-bottom: none; }
+  .parity-item .source {
+    font-size: 13px; color: var(--body); display: block;
+    margin-top: 4px; line-height: 1.5;
+  }
+  .fix {
+    padding: 22px 0; border-bottom: 1px solid var(--border-soft);
+    display: grid; grid-template-columns: 32px 1fr; gap: 16px;
+  }
+  .fix:last-child { border-bottom: none; }
+  .fix:first-child { padding-top: 4px; }
+  .fix .num {
+    font-size: 22px; font-weight: 300; color: var(--accent);
+    font-variant-numeric: tabular-nums; line-height: 1; padding-top: 2px;
+  }
+  .fix .what { font-size: 17px; font-weight: 400; color: var(--heading); margin: 0 0 6px; line-height: 1.35; }
+  .fix .where { font-size: 16px; color: var(--body); margin-bottom: 12px; line-height: 1.5; }
+  .fix .pills { display: flex; gap: 8px; margin-bottom: 12px; }
+  .pill {
+    font-size: 11px; color: var(--label); border: 1px solid var(--border);
+    border-radius: 4px; padding: 3px 8px; letter-spacing: 0.04em;
+  }
+  .fix .evidence {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic; font-size: 16px; color: var(--label);
+    line-height: 1.55; padding: 4px 0 4px 14px;
+    border-left: 2px solid var(--border); margin-top: 4px;
+  }
+  .fix .evidence .attr {
+    font-family: 'Inter', sans-serif; font-style: normal;
+    font-size: 12px; color: var(--body); display: block; margin-top: 4px;
+  }
+  .footer {
+    margin-top: 40px; font-size: 13px; color: #425466;
+    text-align: center; padding-top: 20px; border-top: 1px solid var(--border);
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+  @media (max-width: 700px) {
+    body { margin: 24px auto; }
+    h1 { font-size: 32px; }
+    .platforms { grid-template-columns: repeat(2, 1fr); }
+    .parity { grid-template-columns: 1fr; gap: 16px; }
+    .card { padding: 22px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="eyebrow">Book · Booking Edge</div>
+  <h1>Basalt Waikiki</h1>
+  <div class="sub">Three signals, one playbook. What guests say, how you stack up against Roy's Waikiki, Goofy Cafe, and MW Restaurant, and what to fix on the booking page this week.</div>
+  <div class="stamp">Pre-Demo Backup, 2026-05-11</div>
+
+  <div class="platforms">
+    <div class="platform">
+      <div class="name">OpenTable</div>
+      <div class="rating">4.7</div>
+      <div class="count">2,218+ reviews</div>
+      <div class="scrape">Diners' Choice</div>
+    </div>
+    <div class="platform">
+      <div class="name">TripAdvisor</div>
+      <div class="rating">4.4</div>
+      <div class="count">445 reviews</div>
+      <div class="scrape">#19 of 1,749 Honolulu restaurants</div>
+    </div>
+    <div class="platform">
+      <div class="name">Yelp</div>
+      <div class="rating">N/A</div>
+      <div class="count">2,026 reviews</div>
+      <div class="scrape">scrape blocked, count + 6,407 photos via search</div>
+    </div>
+    <div class="platform">
+      <div class="name">Google</div>
+      <div class="rating">N/A</div>
+      <div class="count">listing active</div>
+      <div class="scrape">ratings not pulled directly</div>
+    </div>
+  </div>
+
+  <p class="note">Sample size, 20 mixed reviews read across TripAdvisor (review-page deep links), OpenTable summary, Yelp search snippet, plus cross-reference from Honolulu Magazine, Aaron's Food Adventures (Sep 2025), and the operator's media archive. Yelp returned 403 on direct fetch, so the Yelp count and photo total come from search snippet. The 20-review sample is enough to surface themes but the operator should pull the full OpenTable thread and the recent Google Reviews set on the next pass.</p>
+
+  <div class="card featured">
+    <span class="section-label">Signal 1, Review voice</span>
+    <h2>What guests actually say</h2>
+
+    <div class="theme">
+      <div class="head"><div class="name">Charcoal Buttermilk Pancakes are the single most-named dish. The hero is intact.</div><div class="meta">9 of 20 <span class="chip pos">positive</span></div></div>
+      <div class="quote">"The Charcoal Buttermilk Pancake was probably the best pancake I will ever have."<span class="attr">David-Vickie, TripAdvisor, October 2024</span></div>
+      <div class="quote">"Basalt's charcoal pancakes are so next level. I had the pork hash loco moco and cleaned my plate."<span class="attr">gu_ju128, TripAdvisor, June 2025</span></div>
+      <div class="quote">"Fabulous breakfast, the best we had in Waikiki which includes Orchids at the Halekulani which was 3 times the price!"<span class="attr">SydneyS_k, Sydney, TripAdvisor, December 2019</span></div>
+    </div>
+
+    <div class="theme">
+      <div class="head"><div class="name">Happy hour (2pm to 5pm at the bar) is the value play locals and visitors keep finding.</div><div class="meta">6 of 20 <span class="chip pos">positive</span></div></div>
+      <div class="quote">"Burgers (Wagyu beef!), fish tacos, empanadas, wings, poke for under $5 to $6 bucks per plate. This is definitely our go to from now on in Waikiki!"<span class="attr">extravelagent, Honolulu HI, TripAdvisor, February 2019</span></div>
+      <div class="quote">"This is truly Waikiki's 'hidden gem.' Their 'Happy Hour' is GREAT and quite 'budget friendly.'"<span class="attr">msgmatos, Davenport FL, TripAdvisor, January 2025</span></div>
+      <div class="quote">"Great bartenders, great deals for happy hour. Poke was great as was the burger."<span class="attr">Craig, TripAdvisor, December 2025</span></div>
+    </div>
+
+    <div class="theme">
+      <div class="head"><div class="name">Service is warm and personal. Reviewers name the server, which is rare for a Waikiki restaurant.</div><div class="meta">7 of 20 <span class="chip pos">positive</span></div></div>
+      <div class="quote">"Our server Jane was lovely and helpful. We had the eggs Benedict, bagel with lox and the avocado toast, all were amazing."<span class="attr">SydneyS_k, Sydney, TripAdvisor, December 2019</span></div>
+      <div class="quote">"Excellent service overall. Our server made sure the water glass stayed full."<span class="attr">Aaron Wakamatsu, Aaron's Food Adventures, September 2025</span></div>
+    </div>
+
+    <div class="theme">
+      <div class="head"><div class="name">The food-hall location reads as a maze on the first visit. Wayfinding is owned by bloggers, not the operator.</div><div class="meta">4 of 20 <span class="chip mix">mixed</span></div></div>
+      <div class="quote">"As you head into Dukes Lane Market & Eatery on Kuhio Avenue, you keep going past the burger and gelato counters to find Basalt toward the rear of the food hall."<span class="attr">Restaurant Insider, Star Advertiser dining column, 2020</span></div>
+      <div class="quote">"An elevator ride down and a short jaunt later."<span class="attr">Aaron Wakamatsu, Aaron's Food Adventures, September 2025</span></div>
+    </div>
+
+    <div class="theme">
+      <div class="head"><div class="name">Atmosphere reads as noisy or inconsistent versus the food quality.</div><div class="meta">3 of 20 <span class="chip mix">mixed</span></div></div>
+      <div class="quote">"5 star food, 5 star service, 3 star atmostphere. Noisy environment."<span class="attr">Charles F, TripAdvisor, January 2025</span></div>
+    </div>
+
+    <div class="theme">
+      <div class="head"><div class="name">Weekday execution misses (cold coffee, wrong pancake count, overcooked poached egg, takeout) shake the "real restaurant" perception.</div><div class="meta">4 of 20 <span class="chip neg">negative</span></div></div>
+      <div class="quote">"The bacon very well cooked and the pancakes were overwhelming. All fluffy and yummy and charcoal flavour ok."<span class="attr">Suestravels52, Sydney, TripAdvisor, April 2025 (received five pancakes instead of two ordered, coffee arrived cold)</span></div>
+      <div class="quote">"Too expensive for takeout that wasn't very good. Seems that lots of Waikiki restaurants have very similar menus and Basalt's was the same but more expensive with just their charcoal pancakes as something unique."<span class="attr">MichaelJamesCole, Qinhuangdao, TripAdvisor, September 2021</span></div>
+      <div class="quote">"No runny yolk made me a sad panda."<span class="attr">Aaron Wakamatsu on the Crab Cake Benedict, September 2025</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="section-label">Signal 1, FAQ gaps</span>
+    <h2>Questions guests ask that the website doesn't answer</h2>
+    <div class="gap"><div class="q">Did the Charcoal Buttermilk Pancakes survive the 2025 menu redesign?</div><div class="a">They did. Press coverage confirms Chef Kosaka "changed mostly everything except the pancakes." But the homepage never mentions the pancake by name and never confirms it stayed. A returning guest has to trust a 2018 TripAdvisor review or a 2025 Honolulu Magazine piece. The hero dish is invisible at the booking moment.</div></div>
+    <div class="gap"><div class="q">How do I actually find Basalt inside Dukes Lane Market & Eatery?</div><div class="a">Multiple reviewers and bloggers warn the entrance is easy to miss and the path runs past the burger and gelato counters. The contact page lists an address only. Wayfinding is owned by third parties, which costs the operator first-time bookings.</div></div>
+    <div class="gap"><div class="q">Where exactly does the 20% kamaʻāina discount apply?</div><div class="a">The homepage carousel shows a "kamaʻāina discount" tile but does not state the redemption rule. Does it apply at breakfast, dinner, happy hour, takeout, with a valid Hawaiʻi ID, on the full check or food only? A local diner cannot answer this before clicking through, so the offer underconverts.</div></div>
+    <div class="gap"><div class="q">Is dinner a $60 night or a $200 night?</div><div class="a">Press lists dinner entrées at $30 to $45 and reports check averages of "$100+ per person." Nothing on the homepage frames the expected check, which leaves the dominant anxiety from the third-party listings unanswered.</div></div>
+    <div class="gap"><div class="q">What is the cancellation policy if I book on OpenTable?</div><div class="a">Not visible on the homepage or contact page. Standard OpenTable rules apply by default, but a single line beside the reservation button removes the "I'll look elsewhere" reflex.</div></div>
+  </div>
+
+  <div class="card">
+    <span class="section-label">Signal 2, Comp parity</span>
+    <h2>Where you stack up against Roy's Waikiki, Goofy Cafe, and MW Restaurant</h2>
+    <div class="parity">
+      <div class="parity-col">
+        <h3>Themes you own</h3>
+        <div class="parity-item">TripAdvisor rank #19 of 1,749 Honolulu restaurants.<span class="source">Roy's Waikiki sits at #73 with 3,569 reviews. MW Restaurant at #118 with 341 reviews. Basalt wins on ranking but does not surface the rank anywhere on the homepage.</span></div>
+        <div class="parity-item">A signature dish the brand can stand on.<span class="source">Charcoal Buttermilk Pancakes have eight years of Hawaiʻi press behind them. Roy's, Goofy, and MW each have menus but no single dish that diners name unprompted at the same frequency.</span></div>
+        <div class="parity-item">Real chef pedigree (Lance Kosaka, 17 years with Alan Wong).<span class="source">Same lineage as MW's Wade Ueoka and Michelle Karr-Ueoka. MW makes that pedigree the homepage. Basalt buries it on a chef bio page.</span></div>
+        <div class="parity-item">Four dayparts under one roof, with a $5 to $6 happy hour in Waikiki.<span class="source">Roy's, Goofy, MW each cover at most two dayparts. Basalt's 2pm to 5pm bar pricing is a genuine value play that none of the three comps reproduce.</span></div>
+      </div>
+      <div class="parity-col">
+        <h3>Themes they own that you don't</h3>
+        <div class="parity-item">Review volume as a trust signal.<span class="source">Roy's Waikiki: 6,797 OpenTable + 3,569 TripAdvisor. Goofy: 3,886 Yelp + 1,811 TripAdvisor. MW: 3,525 OpenTable. Basalt: 2,218 OpenTable + 445 TripAdvisor. Wins on quality, loses on volume, and the booking page does not surface the contrast.</span></div>
+        <div class="parity-item">Embedded booking widget on the homepage.<span class="source">Goofy Cafe and MW route directly through OpenTable from the homepage button. Basalt's "Make a Reservation" pops to an external OpenTable URL with no in-page widget, which adds a click and breaks the booking momentum.</span></div>
+        <div class="parity-item">A clear "what to expect" line on the booking moment.<span class="source">Roy's and MW frame the check average and the dress code on the reservation page. Basalt's homepage states hours and parking, but says nothing about price band, attire, or wayfinding before the OpenTable click.</span></div>
+        <div class="parity-item">Wayfinding owned by the brand, not by third-party blogs.<span class="source">Goofy and MW sit in stand-alone buildings, so wayfinding is trivial. Basalt sits inside a food hall and writes about itself the same way, which forces guests to learn the path from a Star Advertiser dining column.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card featured">
+    <span class="section-label">Signal 3, CRO fixes</span>
+    <h2>Three fixes, ranked</h2>
+
+    <div class="fix">
+      <div class="num">1</div>
+      <div>
+        <div class="what">Add a one-liner directly above the "Make a Reservation" button on the homepage: "Charcoal Buttermilk Pancakes still on the menu. Chef Lance Kosaka (17 years with Alan Wong) reframed everything else."</div>
+        <div class="where">Homepage hero, immediately above the OpenTable reservation button.</div>
+        <div class="pills"><span class="pill">Impact: High</span><span class="pill">Effort: Low</span></div>
+        <div class="evidence">"The Charcoal Buttermilk Pancake was probably the best pancake I will ever have."<span class="attr">David-Vickie, TripAdvisor, October 2024. Plus the dominant pre-booking anxiety from press coverage: did the famous pancake survive the chef change? The pancake is named in 9 of 20 sampled reviews. The homepage never says it stayed.</span></div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="num">2</div>
+      <div>
+        <div class="what">Add a wayfinding line under the address on Contact and on the homepage hero: "Inside Dukes Lane Market & Eatery, ground floor of Hyatt Centric Waikiki. Past the gelato counter, toward the back of the market."</div>
+        <div class="where">Homepage hero (below address block) and Contact page (under map embed).</div>
+        <div class="pills"><span class="pill">Impact: Medium</span><span class="pill">Effort: Low</span></div>
+        <div class="evidence">"As you head into Dukes Lane Market & Eatery on Kuhio Avenue, you keep going past the burger and gelato counters to find Basalt toward the rear of the food hall."<span class="attr">Restaurant Insider, Star Advertiser dining column, 2020. Wayfinding is currently owned by a Star Advertiser column and a 2025 food blog. Owning the line on-site converts confused first-time guests into seated diners.</span></div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="num">3</div>
+      <div>
+        <div class="what">Spell out the kamaʻāina rule on the promo carousel tile and on the reservation button hover: "20% off for kamaʻāina with valid Hawaiʻi ID. Breakfast, lunch, dinner. Happy hour excluded."</div>
+        <div class="where">Homepage carousel kamaʻāina tile and the OpenTable button hover state.</div>
+        <div class="pills"><span class="pill">Impact: Medium</span><span class="pill">Effort: Low</span></div>
+        <div class="evidence">The 20% kamaʻāina discount was the restaurant's first ever, launched July 2025, and the operator explicitly wants locals back. A tile with no redemption rule reads as marketing decoration. Naming the rule turns a generic offer into a redemption-ready promise and pre-empts the dinner-check anxiety surfaced in the "Meh" takeout review.<span class="attr">MichaelJamesCole, TripAdvisor, September 2021: "more expensive with just their charcoal pancakes as something unique." Plus operator intent from Honolulu Magazine, April 2025.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Built with the Hospitality Business Skills teammate, Powered by <a href="https://lightson.co">Lights On</a> · github.com/lightson-digital/hospitality-business-skills</div>
+</body>
+</html>

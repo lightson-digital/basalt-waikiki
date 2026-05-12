@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repeat Hooks · Basalt Waikiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --heading: #061b31;
+    --body: #273951;
+    --label: #273951;
+    --accent: #533afd;
+    --accent-soft: rgba(83, 58, 253, 0.08);
+    --border: #e5edf5;
+    --border-soft: #f0f4f9;
+    --bg: #ffffff;
+    --surface: #fefefe;
+    --yes: #108c3d;
+    --no: #ea2261;
+    --shadow-card: rgba(50,50,93,0.10) 0px 12px 20px 0px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 300; font-size: 17px;
+    max-width: 1080px; margin: 40px auto; padding: 0 32px;
+    color: var(--heading); background: var(--bg);
+    line-height: 1.55; -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01";
+  }
+  .stamp { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); background: rgba(83,58,253,0.08); border-radius: 999px; padding: 4px 10px; margin-bottom: 28px; }
+  .eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  h1 { font-size: 44px; font-weight: 300; letter-spacing: -1.2px; line-height: 1.05; margin: 0 0 4px; color: var(--heading); }
+  .deck { font-size: 20px; font-weight: 300; color: var(--body); margin: 0 0 12px; max-width: 720px; line-height: 1.55; }
+  .section-label { font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .section { margin-bottom: 64px; }
+  /* Audit grid */
+  .audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .audit-cell { padding: 18px 22px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+  .audit-cell .name { font-size: 11px; font-weight: 500; color: var(--label); text-transform: uppercase; letter-spacing: 0.1em; }
+  .audit-cell .answer { font-size: 16px; font-weight: 400; color: var(--heading); }
+  .audit-cell .answer.yes { color: var(--yes); }
+  .audit-cell .answer.no { color: var(--no); }
+  .audit-cell .detail { font-size: 16px; color: var(--body); line-height: 1.55; }
+  /* Lifecycle timeline */
+  .timeline-frame { border: 1px solid var(--border); border-radius: 12px; background: linear-gradient(180deg, var(--accent-soft) 0%, rgba(255,255,255,0) 60%); padding: 36px 28px 32px; }
+  .timeline { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .timeline::before { content: ""; position: absolute; top: 22px; left: 8%; right: 8%; height: 1px; background: var(--border); z-index: 0; }
+  .milestone { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 14px; }
+  .milestone .marker { width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); margin: 14px auto 0; }
+  .milestone .when { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); text-align: center; }
+  .milestone .job { font-size: 11px; font-weight: 400; letter-spacing: 0.06em; color: var(--body); text-align: center; text-transform: uppercase; margin-top: -8px; }
+  .milestone .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px 20px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .milestone .subject { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--label); line-height: 1.4; }
+  .milestone .body { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: 16px; font-weight: 400; color: var(--heading); line-height: 1.6; }
+  .milestone .cta { font-size: 13px; font-weight: 400; color: var(--accent); margin-top: auto; line-height: 1.5; }
+  /* Email mockups */
+  .email { border: 1px solid var(--border); border-radius: 6px; background: var(--surface); margin-bottom: 14px; overflow: hidden; }
+  .email .envelope-bar { border-bottom: 1px solid var(--border-soft); padding: 10px 22px; font-size: 11px; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; background: var(--surface); }
+  .email .envelope-body { padding: 22px 24px 20px; }
+  .email .subject-line { font-size: 16px; font-weight: 400; color: var(--heading); margin-bottom: 14px; line-height: 1.4; }
+  .email .subject-line::before { content: "Subject: "; color: var(--body); font-weight: 500; }
+  .email .body-copy { font-size: 16px; color: var(--body); line-height: 1.6; margin-bottom: 14px; }
+  .email .cta-link { font-size: 13px; font-weight: 400; color: var(--accent); }
+  /* Referral mechanics */
+  .mechanics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .mechanic { border: 1px solid var(--border); border-radius: 8px; padding: 22px; background: var(--surface); display: flex; flex-direction: column; gap: 12px; }
+  .mechanic .title { font-size: 16px; font-weight: 400; color: var(--heading); line-height: 1.35; }
+  .mechanic .description { font-size: 16px; color: var(--body); line-height: 1.55; }
+  .mechanic .pills { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+  .pill { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); color: var(--label); background: var(--bg); }
+  .pill .pill-label { color: var(--body); margin-right: 4px; }
+  /* Operational ideas */
+  .ideas { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  .idea { padding: 16px 22px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: baseline; gap: 16px; }
+  .idea:last-child { border-bottom: none; }
+  .idea .text { font-size: 16px; color: var(--heading); flex: 1; line-height: 1.55; }
+  .idea .effort { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--body); white-space: nowrap; }
+  /* Footer */
+  .footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #425466; display: flex; justify-content: space-between; align-items: center; }
+  .footer a { color: var(--accent); text-decoration: none; }
+  @media (max-width: 760px) {
+    body { margin: 32px auto; padding: 0 20px; }
+    h1 { font-size: 32px; }
+    .audit-grid { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .timeline-frame { padding: 24px 18px; }
+    .mechanics { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="eyebrow">Reconnect · Repeat Hooks</div>
+  <h1>Basalt Waikiki</h1>
+  <p class="deck">After the charcoal pancakes hit the table and the check is settled, what brings a guest back? A four-touchpoint lifecycle plan, three reactivation email starters, and three referral mechanics, drafted in Basalt's "food brings people together" voice.</p>
+  <span class="stamp">Powered by Lights On · ran on 2026-05-11</span>
+
+  <!-- Section 1: Touchpoint audit -->
+  <div class="section">
+    <div class="section-label">Post-experience touchpoint audit</div>
+    <div class="audit-grid">
+      <div class="audit-cell">
+        <div class="name">Email signup on site</div>
+        <div class="answer no">No</div>
+        <div class="detail">No newsletter capture visible on the homepage. No first-visit incentive form, no "join the list for chef's specials." OpenTable captures email at reservation, but Basalt doesn't own that list as a first-party marketing channel.</div>
+      </div>
+      <div class="audit-cell">
+        <div class="name">Repeat or referral program</div>
+        <div class="answer yes">Yes, partial</div>
+        <div class="detail">20% kamaʻāina discount (launched July 2025, Hawaiʻi State ID required) is the only structured repeat lever. Gift cards exist as a top-nav link but route off-site through a third-party platform. No referral code, no birthday club, no returning-guest punch.</div>
+      </div>
+      <div class="audit-cell">
+        <div class="name">Active blog or newsletter</div>
+        <div class="answer no">No</div>
+        <div class="detail">"Media" page lists ~60 press features through 2025, but no Basalt-authored content cadence. No monthly menu-change announcement, no chef's-table series email, no seasonal program visible.</div>
+      </div>
+      <div class="audit-cell">
+        <div class="name">Post-meal email sequence</div>
+        <div class="answer no">No</div>
+        <div class="detail">No visible post-meal sequence in Basalt's voice. OpenTable sends a generic "rate your visit" prompt, but Basalt doesn't ride that touchpoint. The most-loyal moment (right after the charcoal pancakes) goes unused.</div>
+      </div>
+      <div class="audit-cell">
+        <div class="name">First-party gift card SKU</div>
+        <div class="answer no">No</div>
+        <div class="detail">Top-nav "Gift Card" link routes off-site through a third-party platform. The hotel-walk-in audience is buying gift cards for friends visiting Oʻahu, and Basalt is paying a third-party cut on every redemption instead of capturing it direct.</div>
+      </div>
+      <div class="audit-cell">
+        <div class="name">GBP posts in last 30 days</div>
+        <div class="answer no">Not verified</div>
+        <div class="detail">Treat as a free repeat hook. A weekly GBP post (this week's daily special, a Lance Kosaka brunch plate, a happy-hour pour) costs nothing and keeps Basalt in top-of-mind for past guests and hotel walk-ins checking the listing.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Lifecycle drip timeline -->
+  <div class="section">
+    <div class="section-label">Lifecycle drip plan · four touchpoints</div>
+    <div class="timeline-frame">
+      <div class="timeline">
+
+        <div class="milestone">
+          <div class="marker"></div>
+          <div class="when">Day 1</div>
+          <div class="job">Mahalo + pancake share</div>
+          <div class="card">
+            <div class="subject">Mahalo from the Basalt ʻohana</div>
+            <div class="body">"Thank you for finding us inside Dukes Lane. If the charcoal pancakes made it onto your camera roll, tag us so we can see. And if you have a moment, a quick line on Google or OpenTable means a lot to the team. Food brings people together, you brought yours to our table."</div>
+            <div class="cta">→ Leave a quick review</div>
+          </div>
+        </div>
+
+        <div class="milestone">
+          <div class="marker"></div>
+          <div class="when">Week 1</div>
+          <div class="job">Different daypart cross-sell</div>
+          <div class="card">
+            <div class="subject">You came for brunch. The other half of the room opens at 2.</div>
+            <div class="body">"Most guests don't realize Basalt runs four dayparts under one roof. Happy hour from 2 to 5 at the bar, dinner from 5 to 9 with Lance Kosaka's salmon chazuke risotto and the guava baby back ribs. Walk in, no second reservation needed for the bar."</div>
+            <div class="cta">→ See the happy hour and dinner menus</div>
+          </div>
+        </div>
+
+        <div class="milestone">
+          <div class="marker"></div>
+          <div class="when">Month 3</div>
+          <div class="job">Kamaʻāina + special occasion</div>
+          <div class="card">
+            <div class="subject">Hawaiʻi residents get 20%. Visitors get a plate with a candle.</div>
+            <div class="body">"For kamaʻāina diners, the 20% discount is still on (Hawaiʻi State ID at the table). For visitors back on island for a birthday or anniversary, tell us when you book and we'll set up the prime rib, the chazuke risotto, or the charcoal pancakes with a candle, your call."</div>
+            <div class="cta">→ Book a kamaʻāina or special-occasion visit</div>
+          </div>
+        </div>
+
+        <div class="milestone">
+          <div class="marker"></div>
+          <div class="when">Season 2</div>
+          <div class="job">Chef-led event</div>
+          <div class="card">
+            <div class="subject">Chef Lance is doing one night a quarter</div>
+            <div class="body">"A small chef's-table evening with Lance Kosaka, the kitchen open, the menu off-card. Or the seasonal return of the guava baby back ribs. Or private dining for an end-of-year team night. Reserved first for the list before it goes public."</div>
+            <div class="cta">→ Get on the chef's-table list</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Reactivation email starters -->
+  <div class="section">
+    <div class="section-label">Three reactivation email starters</div>
+
+    <div class="email">
+      <div class="envelope-bar">Menu redesign — chef-driven reactivation</div>
+      <div class="envelope-body">
+        <div class="subject-line">The pancakes are still there. The rest of the menu isn't.</div>
+        <div class="body-copy">Lance Kosaka changed mostly everything except the charcoal pancakes when he took the kitchen in April 2025. Salmon chazuke risotto, guava baby back ribs, pork hash loco moco, citrus-cured salmon toast. If the last time you ate at Basalt was before the redesign, the room is the same and almost nothing else is.</div>
+        <div class="cta-link">→ See the new menu and book on OpenTable</div>
+      </div>
+    </div>
+
+    <div class="email">
+      <div class="envelope-bar">Different daypart cross-sell — happy hour</div>
+      <div class="envelope-body">
+        <div class="subject-line">You came for brunch. The happy hour is the other half of the room.</div>
+        <div class="body-copy">Most of the people who do brunch at Basalt tell us afterward they didn't know the bar runs a real 2-to-5 happy hour, not a tourist-priced one. Walk in for a drink and the burger Frolic Hawaii called "the best happy hour burger in Waikiki." No second reservation, just the bar.</div>
+        <div class="cta-link">→ See the happy hour menu</div>
+      </div>
+    </div>
+
+    <div class="email">
+      <div class="envelope-bar">Kamaʻāina come-back</div>
+      <div class="envelope-body">
+        <div class="subject-line">Hawaiʻi residents: we built the 20% for you.</div>
+        <div class="body-copy">The 20% kamaʻāina discount was the first one Basalt has ever run, and it's still on. Show a Hawaiʻi State ID at the table. The pancakes are still on the menu, the prime rib's still on the menu, and Lance Kosaka (Iolani, UH, 17 years at Alan Wong) is the one cooking. Built for the kamaʻāina table.</div>
+        <div class="cta-link">→ Book a kamaʻāina table on OpenTable</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Referral mechanics -->
+  <div class="section">
+    <div class="section-label">Three referral mechanics to ship</div>
+    <div class="mechanics">
+      <div class="mechanic">
+        <div class="title">First-party gift card SKU on basaltwaikiki.com</div>
+        <div class="description">The current top-nav gift card routes through a third-party platform. Bring it onto basaltwaikiki.com directly with a "send a Basalt night to a friend visiting Oʻahu" frame. Hotel-walk-in guests and kamaʻāina buy them for visiting friends and family year-round. Captures the redemption without paying a third-party cut, and the email lives on the Basalt list, not someone else's.</div>
+        <div class="pills">
+          <span class="pill"><span class="pill-label">Effort</span>Low</span>
+          <span class="pill"><span class="pill-label">Revenue</span>Mid</span>
+        </div>
+      </div>
+      <div class="mechanic">
+        <div class="title">Charcoal-pancake photo post-meal SMS with friend code</div>
+        <div class="description">After breakfast, table-side QR or follow-up SMS sends the guest their charcoal-pancake photo plus a one-time friend code (free dessert or a happy-hour drink on the friend's first visit). Catches them at peak enthusiasm, with the dish that's already on their camera roll, and the code is the easy thing to text to a friend they wish was at the table.</div>
+        <div class="pills">
+          <span class="pill"><span class="pill-label">Effort</span>Low</span>
+          <span class="pill"><span class="pill-label">Revenue</span>Mid</span>
+        </div>
+      </div>
+      <div class="mechanic">
+        <div class="title">Kamaʻāina-Plus extension, +1 friend at the resident rate</div>
+        <div class="description">Returning kamaʻāina who book a second visit bring one mainland friend at the 20% rate, no Hawaiʻi ID required for the +1. Compounds the discount already running. Turns local repeat into a local-plus-visitor mix and fills the off-peak Thursday and Sunday dinner slots most likely to need the help. The kamaʻāina is the seed, the friend is the upside.</div>
+        <div class="pills">
+          <span class="pill"><span class="pill-label">Effort</span>Mid</span>
+          <span class="pill"><span class="pill-label">Revenue</span>Mid</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Ship-this-week ideas -->
+  <div class="section">
+    <div class="section-label">Three repeat-visit ideas you can ship this week</div>
+    <div class="ideas">
+      <div class="idea">
+        <div class="text">Add a homepage email capture with a real reason ("first to know about Lance Kosaka's chef's-table nights and seasonal menu drops"). Owns the list direct, no OpenTable middleman, gives the operator a channel to ride the press cadence the brand already earns.</div>
+        <div class="effort">Low effort</div>
+      </div>
+      <div class="idea">
+        <div class="text">Restart GBP weekly posts: Monday, this week's daily special, a brunch plate, or a happy-hour pour. Free distribution, surfaces directly to anyone searching "Basalt Waikiki" or "breakfast Waikiki" on Google, and the most-skipped repeat hook for chef-driven restaurants inside a hotel.</div>
+        <div class="effort">Low effort</div>
+      </div>
+      <div class="idea">
+        <div class="text">Send a same-day post-meal email in Basalt's voice (not OpenTable's). One ask, a Google or OpenTable review, with the charcoal-pancake photo or the table photo attached. Owns the most-loyal moment instead of letting the third-party platform have it.</div>
+        <div class="effort">Mid effort</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Built with the Hospitality Business Skills teammate · github.com/lightson-digital/hospitality-business-skills</span>
+    <a href="https://lightson.co" target="_blank" rel="noopener">Powered by Lights On</a>
+  </div>
+
+</body>
+</html>

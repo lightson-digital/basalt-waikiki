@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experience Pulse · Basalt Waikiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --heading: #061b31;
+    --label: #273951;
+    --body: #273951;
+    --accent: #533afd;
+    --border: #e5edf5;
+    --bg: #ffffff;
+    --shadow-featured: rgba(50,50,93,0.10) 0px 12px 20px 0px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    max-width: 1040px; margin: 40px auto; padding: 0 32px;
+    color: var(--heading); line-height: 1.55; background: var(--bg);
+    font-weight: 300;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01";
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 44px; font-weight: 300; letter-spacing: -1.2px;
+    margin: 0 0 4px; color: var(--heading); line-height: 1.1;
+  }
+  .sub { font-size: 20px; font-weight: 300; color: var(--body); margin-bottom: 12px; line-height: 1.5; max-width: 780px; }
+  .stamp {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    background: rgba(83,58,253,0.08); border-radius: 999px;
+    padding: 4px 10px; margin-bottom: 28px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600;
+  }
+  .meta { font-size: 12px; color: var(--body); margin-bottom: 8px; letter-spacing: 0.04em; }
+
+  /* Section heading style · used at top of each bucket */
+  .section-head {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--label); margin: 56px 0 20px;
+  }
+  .section-head .ring {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-right: 10px; vertical-align: middle;
+  }
+
+  .contrast-note {
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 18px 22px; margin: 22px 0 8px;
+    font-size: 14px; color: var(--body); line-height: 1.6;
+  }
+  .contrast-note strong { color: var(--heading); font-weight: 500; }
+
+  /* Bucket 1 · Love (pull-quotes) */
+  .love-quote {
+    font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: 19px;
+    font-weight: 400;
+    line-height: 1.55; color: var(--heading); padding: 6px 0 6px 22px;
+    border-left: 2px solid var(--accent); margin: 22px 0;
+  }
+  .love-quote .attribution {
+    display: block; font-family: 'Inter', sans-serif; font-style: normal;
+    font-size: 12px; color: var(--body); margin-top: 8px; letter-spacing: 0.04em;
+  }
+
+  .pattern-note { font-size: 15px; color: var(--body); margin: 24px 0 0; line-height: 1.65; }
+  .pattern-note strong { color: var(--heading); font-weight: 500; }
+
+  /* Bucket 2 · Hate (frequency rows) */
+  .hate-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+  .hate-row:last-child { border-bottom: none; }
+  .hate-text { font-size: 16px; color: var(--heading); font-weight: 400; line-height: 1.5; flex: 1; }
+  .freq-badge {
+    font-size: 11px; padding: 3px 8px; border: 1px solid var(--border);
+    border-radius: 4px; color: var(--body); white-space: nowrap; margin-left: 16px;
+  }
+
+  /* Bucket 3 · Fear (2x2 grid) */
+  .fear-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 8px 0;
+  }
+  .fear-cell {
+    border: 1px solid var(--border); border-radius: 6px; padding: 18px;
+  }
+  .fear-anxiety { font-size: 16px; color: var(--heading); margin-bottom: 12px; line-height: 1.5; font-weight: 400; }
+  .fear-status {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--label); font-weight: 500;
+  }
+  .fear-status.not-addressed { color: var(--accent); }
+
+  /* Bucket 4 · Category changing (timeline rows) */
+  .trend-row {
+    display: grid; grid-template-columns: 2fr 1.2fr 1.5fr; gap: 18px;
+    align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--border);
+  }
+  .trend-row:last-child { border-bottom: none; }
+  .trend-name { font-size: 16px; color: var(--heading); font-weight: 400; line-height: 1.5; }
+  .trend-name .caption { display: block; font-size: 16px; color: var(--body); margin-top: 8px; font-weight: 300; line-height: 1.55; }
+  .trend-when { font-size: 13px; color: var(--label); }
+  .trend-source a { font-size: 12px; color: var(--accent); text-decoration: none; word-break: break-all; }
+
+  /* Bucket 5 · Comp side-by-side */
+  .comp-table {
+    width: 100%; border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+    border-collapse: separate; border-spacing: 0; margin: 8px 0;
+  }
+  .comp-table th, .comp-table td {
+    padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--border);
+    font-size: 16px; vertical-align: top; line-height: 1.55;
+  }
+  .comp-table th {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--label); background: #fafbfd;
+  }
+  .comp-table td.they { color: var(--heading); }
+  .comp-table td.you { color: var(--body); }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-source { font-size: 12px; color: var(--body); margin-top: 8px; }
+
+  /* Three service-change recs */
+  .recs { margin-top: 24px; }
+  .rec {
+    display: grid; grid-template-columns: 56px 1fr; gap: 24px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 28px 32px; margin-bottom: 18px; box-shadow: var(--shadow-featured);
+  }
+  .rec-num {
+    font-size: 44px; font-weight: 300; color: var(--accent);
+    letter-spacing: -0.04em; line-height: 1;
+  }
+  .rec-name {
+    font-size: 22px; font-weight: 300; letter-spacing: -0.22px;
+    color: var(--heading); margin: 0 0 10px;
+  }
+  .rec-evidence { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .evidence-pill {
+    font-size: 11px; padding: 3px 9px; border: 1px solid var(--border);
+    border-radius: 4px; color: var(--body); letter-spacing: 0.02em;
+  }
+  .rec-meters { font-size: 13px; color: var(--label); margin-bottom: 14px; line-height: 1.7; }
+  .rec-meters strong { color: var(--heading); font-weight: 400; }
+  .rec-step-label {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--label); margin-bottom: 4px;
+  }
+  .rec-step { font-size: 16px; color: var(--heading); line-height: 1.6; }
+
+  /* Sources */
+  .sources { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--border); }
+  .sources-group { margin-bottom: 18px; }
+  .sources-group h4 {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--label); margin: 0 0 8px;
+  }
+  .sources-group ul { margin: 0; padding: 0; list-style: none; }
+  .sources-group li { font-size: 13px; color: var(--body); margin-bottom: 4px; word-break: break-all; }
+  .sources-group a { color: var(--accent); text-decoration: none; }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border);
+    font-size: 13px; color: #425466; text-align: center; letter-spacing: 0.04em;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 720px) {
+    h1 { font-size: 32px; letter-spacing: -0.64px; }
+    .fear-grid { grid-template-columns: 1fr; }
+    .trend-row { grid-template-columns: 1fr; gap: 6px; }
+    .rec { grid-template-columns: 1fr; padding: 22px; }
+    .rec-num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="eyebrow">Experience · Quarterly Pulse</div>
+  <h1>Basalt Waikiki</h1>
+  <div class="sub">What travelers say after the meal, what's shifting in the category, what comps do that you don't.</div>
+  <div class="stamp">Powered by Lights On · ran on 2026-05-11</div>
+  <div class="meta">First Draft · 18 sources read across 7 surfaces (TripAdvisor, OpenTable, Yelp, Honolulu Magazine, Aloha State Daily, Hawaiʻi News Now, HI Now), plus 4 comp-set pages and 3 industry-context articles. Reddit returned no indexed direct mentions across two queries.</div>
+
+  <div class="contrast-note">
+    <strong>Note.</strong> This run is different from Booking Edge. Booking Edge reads major review platforms to find FAQ gaps that cost bookings before the meal. Experience Pulse reads the full public traveler-voice surface plus comp set plus industry context to find the service changes that improve the experience itself. Different lens, different surfaces, different output, different cadence.
+  </div>
+
+  <!-- Bucket 1 · Love -->
+  <div class="section-head"><span class="ring"></span>Travelers love</div>
+
+  <div class="love-quote">
+    "Basalt's charcoal pancakes are so next level."
+    <span class="attribution">gu_ju128 · TripAdvisor, June 2025</span>
+  </div>
+
+  <div class="love-quote">
+    "Fabulous breakfast, the best we had in Waikiki which includes Orchids at the Halekulani which was 3 times the price! Our server Jane was lovely and helpful."
+    <span class="attribution">SydneyS_k, Sydney · TripAdvisor, December 2019</span>
+  </div>
+
+  <div class="love-quote">
+    "Wow what equisite food and service. From start to finish the service was exceptional from all staff. The food was some of the finest I have tasted from all around the world."
+    <span class="attribution">Tracey P · TripAdvisor, April 2018 (typo preserved verbatim)</span>
+  </div>
+
+  <div class="love-quote">
+    "Great bartenders, great deals for happy hour. Poke was great."
+    <span class="attribution">Craig · TripAdvisor, December 2025</span>
+  </div>
+
+  <div class="love-quote">
+    "A great place to have a delicious sit down breakfast that's quiet, relaxing."
+    <span class="attribution">FessParker · TripAdvisor, November 2025</span>
+  </div>
+
+  <div class="love-quote">
+    "I had dinner at Basalt the other night, and it was a wow."
+    <span class="attribution">Mari Taketa, Frolic Hawaiʻi · Honolulu Magazine, July 2025</span>
+  </div>
+
+  <p class="pattern-note"><strong>Pattern.</strong> Two organic peaks travelers tell their friends about. The charcoal pancake, an eight-year visual hero dish that Chef Lance Kosaka deliberately left on the menu when he overhauled almost everything else in April 2025. And "a quiet Waikiki sit-down breakfast that beats the hotel buffet at one third the Halekulani price." Peak-end rule says the peak is what gets remembered. Basalt has two peaks and is currently amplifying neither of them on the homepage above the fold.</p>
+
+  <!-- Bucket 2 · Hate -->
+  <div class="section-head"><span class="ring"></span>Travelers hate</div>
+  <div class="hate-row">
+    <div class="hate-text">"Food-courtish" optics. The Dukes Lane Market & Eatery setting reads as a food hall before diners sit down, which drags trust on the dinner-occasion booking.</div>
+    <div class="freq-badge">Recurring framing across TripAdvisor + OpenTable</div>
+  </div>
+  <div class="hate-row">
+    <div class="hate-text">"The outside seating is adjacent to hotel AC equipment and a parking garage." Sound and smell intrude on the patio for diners expecting a Waikiki sit-down vibe.</div>
+    <div class="freq-badge">1 verbatim, Charles F · TripAdvisor, Jan 2025</div>
+  </div>
+  <div class="hate-row">
+    <div class="hate-text">"The eggs got left behind, the coffee whilst kind was cold." Service slips after the April 2025 chef change, including a separately reported prime rib temperature miss.</div>
+    <div class="freq-badge">2 mentions, TripAdvisor 3-star + 2-star, last 12 months</div>
+  </div>
+  <div class="hate-row">
+    <div class="hate-text">"The service was quite simply the worst we have experienced." Single 2-star outlier strong enough to be the headline a traveler skims first on the recent-reviews tab.</div>
+    <div class="freq-badge">1 mention, Connector635607 · TripAdvisor, Oct 2024</div>
+  </div>
+  <div class="hate-row">
+    <div class="hate-text">"Previously we were able to sit outside but now happy hour is limited to seating at the bar." The bar-only happy-hour rule is still in effect; the friction recurs on every group that does not read the fine print.</div>
+    <div class="freq-badge">Policy still active, recurring expectation gap</div>
+  </div>
+  <div class="hate-row">
+    <div class="hate-text">"Ordered medium rare but was served very rare and cold." Prime rib temperature miss on the dinner hero dish. Single review, but the prime rib is half the dinner check anchor.</div>
+    <div class="freq-badge">1 mention, TripAdvisor, 2024</div>
+  </div>
+
+  <!-- Bucket 3 · Fear -->
+  <div class="section-head"><span class="ring"></span>Travelers fear</div>
+  <div class="fear-grid">
+    <div class="fear-cell">
+      <div class="fear-anxiety">"Is this a real restaurant or a food-hall stall?" Six of the seven Dukes Lane tenants are counter-service. Basalt is full-service with reservations. The homepage does not name the contrast.</div>
+      <div class="fear-status not-addressed">Not addressed</div>
+    </div>
+    <div class="fear-cell">
+      <div class="fear-anxiety">"Is it loud, given the patio sits next to the Hyatt Centric parking garage and AC equipment?" Verbatim flagged in a January 2025 TripAdvisor review. The contact page mentions parking, not patio acoustics.</div>
+      <div class="fear-status not-addressed">Not addressed</div>
+    </div>
+    <div class="fear-cell">
+      <div class="fear-anxiety">"Is dinner a $60 night or a $200 night?" Breakfast plates $20 to $22, dinner entrées $30 to $45, OpenTable summaries quote $100+ per person at dinner. The menu shows the prices but the spend tier is not framed so travelers can pre-commit.</div>
+      <div class="fear-status">Partially addressed</div>
+    </div>
+    <div class="fear-cell">
+      <div class="fear-anxiety">"Is the food still good after the April 2025 chef change?" The biggest single anxiety travelers carry in. Kosaka kept the pancakes and the prime rib, changed almost everything else. The homepage does not lead with that story.</div>
+      <div class="fear-status not-addressed">Not addressed</div>
+    </div>
+  </div>
+
+  <!-- Bucket 4 · Category changing -->
+  <div class="section-head"><span class="ring"></span>What's changing in the category</div>
+
+  <div class="trend-row">
+    <div class="trend-name">Waikiki dine-in sales down ~20% YoY, $16 minimum wage hit Jan 1 2026
+      <span class="caption">"It is the worst I've seen in about two years. Things have just slowed down significantly," Mike Palmer, Managing Partner of Kuhio Avenue Food Hall, KITV November 2025. Restaurants that stack provenance + value levers are winning the share that's still there.</span>
+    </div>
+    <div class="trend-when">November 2025 to January 2026</div>
+    <div class="trend-source"><a href="https://www.kitv.com/news/waikiki-restaurants-struggle-as-tourism-lags-and-costs-rise/article_21da5d04-8936-4f21-ae00-f9c0a57f2af1.html">kitv.com</a></div>
+  </div>
+
+  <div class="trend-row">
+    <div class="trend-name">Spend up 14.8% YTD on arrivals up only 4%. Visitors are dining out harder per trip.
+      <span class="caption">DBEDT reports $4.17B total visitor spending through February 2026 and explicitly calls out food and beverage as one of the largest growth categories across U.S. East and Japanese visitor segments. The job is to convert higher spend per booking, not maximum arrivals.</span>
+    </div>
+    <div class="trend-when">Q1 2026 (DBEDT)</div>
+    <div class="trend-source"><a href="https://www.hawaii-guide.com/blog/hawaii-q1-2026-visitor-spending-surge-summer-impact">hawaii-guide.com</a></div>
+  </div>
+
+  <div class="trend-row">
+    <div class="trend-name">Kamaʻāina lever is now a default expectation, not a marketing flourish
+      <span class="caption">The visitor industry is "looking to isle residents to bolster business," per the Hawaiʻi Tribune-Herald (July 2025). Basalt's 20% kamaʻāina discount was the restaurant's first ever, launched July 2025. The 2026 question is whether it becomes a recurring habit or stays a launch-window promo.</span>
+    </div>
+    <div class="trend-when">July 2025 onwards</div>
+    <div class="trend-source"><a href="https://www.hawaiitribune-herald.com/2025/07/22/hawaii-news/hawaiis-visitor-industry-looks-to-isle-residents-to-bolster-business/">hawaiitribune-herald.com</a></div>
+  </div>
+
+  <div class="trend-row">
+    <div class="trend-name">The closest direct breakfast comp on the pancake lane just exited the market
+      <span class="caption">Cinnamon's at the ʻIlikai now reads CLOSED on Yelp. Cinnamon's was the guava-chiffon-pancake comp travelers used as the alternative to Basalt's charcoal stack, with documented 1 to 2 hour Waikiki waits as recently as January 2025. Basalt has a six-month window where the comp is gone.</span>
+    </div>
+    <div class="trend-when">Spring 2026</div>
+    <div class="trend-source"><a href="https://www.yelp.com/biz/cinnamons-at-the-ilikai-honolulu-4">yelp.com</a></div>
+  </div>
+
+  <!-- Bucket 5 · Comp does, you don't -->
+  <div class="section-head"><span class="ring"></span>Comps do, you don't</div>
+  <table class="comp-table">
+    <thead>
+      <tr><th>They do</th><th>You do</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="they"><strong>Goofy Café &amp; Dine</strong> paints "Local first, organic whenever possible" directly on the wall and on the homepage. One locavore point of view, repeated in one phrase. (Source: goofy-honolulu.com homepage and Honolulu Magazine Best Bites.)</td>
+        <td class="you">Basalt names a chef pedigree, a hidden-gem framing, and "locally inspired, globally influenced." No single repeatable line. The pancake is the only thing the brand commits to with one phrase.</td>
+      </tr>
+      <tr>
+        <td class="they"><strong>Heavenly Island Lifestyle</strong> opens with a Japanese-visitor-tuned breakfast (Heavenly Loco Moco on multigrain rice, Deluxe Unagi Bowls, Japanese-Style Bacon &amp; Mushroom Spaghetti) and a rotating salad bar. Catches JTB and HIS inbound demand on the menu page. (Source: heavenly-waikiki.com/menu.)</td>
+        <td class="you">Basalt has TBS TV Japan and HIS / LeaLea Hawaii TV press history but no language toggle, no Japanese-tuned brunch hero, no JTB logo on the live site. The demand exists; the site does not catch it.</td>
+      </tr>
+      <tr>
+        <td class="they"><strong>Roy's Waikiki</strong> posts the happy-hour menu in plain view with itemized pricing ($3 craft beers, $5 well drinks, $7 wines, sake, sushi at the bar). (Source: royyamaguchi.com/roys-waikiki-oahu plus Yelp page.)</td>
+        <td class="you">Basalt's $5 wagyu happy-hour burger is named best in Waikiki by Frolic Hawaiʻi. The bar-only restriction is buried in fine print, and the homepage does not stack the value proposition above the fold.</td>
+      </tr>
+      <tr>
+        <td class="they"><strong>Cinnamon's at the ʻIlikai</strong> ran the guava-chiffon-pancake comp on the breakfast lane with one to two hour waits documented as recently as January 2025. Now CLOSED on Yelp. (Source: yelp.com/biz/cinnamons-at-the-ilikai-honolulu-4.)</td>
+        <td class="you">Basalt has a six-month window where the strongest direct breakfast comp is out of the Waikiki choice set. The website does not pivot to claim that ground.</td>
+      </tr>
+      <tr>
+        <td class="they"><strong>Hawaiʻi News Now</strong> "What's Cooking" and Honolulu Magazine open the Basalt story with Lance Kosaka's name and resume on the dish. (Source: hawaiinewsnow.com 2025/08/31 segment.)</td>
+        <td class="you">Basalt's own "Lance Kosaka" page is two clicks from the homepage. Eight years of "hidden gem" framing sits where the chef-pedigree story could earn the dinner reservation.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="comp-source">Sources: <a href="https://www.goofy-honolulu.com/">goofy-honolulu.com</a> · <a href="https://www.heavenly-waikiki.com/menu">heavenly-waikiki.com/menu</a> · <a href="https://www.royyamaguchi.com/roys-waikiki-oahu">royyamaguchi.com/roys-waikiki-oahu</a> · <a href="https://www.yelp.com/biz/cinnamons-at-the-ilikai-honolulu-4">yelp.com Cinnamon's listing</a> · <a href="https://www.hawaiinewsnow.com/2025/08/31/whats-cooking-basalt-waikiki-chef-revamps-menu-8th-anniversary/">hawaiinewsnow.com</a></div>
+
+  <!-- Three service-change recs -->
+  <div class="section-head"><span class="ring"></span>Three service changes, ranked</div>
+  <div class="recs">
+
+    <div class="rec">
+      <div class="rec-num">1</div>
+      <div>
+        <div class="rec-name">Anchor the hero on Lance Kosaka, the kamaʻāina discount, and "we left the pancakes"</div>
+        <div class="rec-evidence">
+          <span class="evidence-pill">Fear · chef-change anxiety</span>
+          <span class="evidence-pill">Press · Honolulu Magazine</span>
+          <span class="evidence-pill">Comp · Cinnamon's CLOSED</span>
+          <span class="evidence-pill">Industry · kamaʻāina trend</span>
+        </div>
+        <div class="rec-meters"><strong>Effort:</strong> Low · <strong>Impact:</strong> High · <strong>Where:</strong> Pre-arrival (homepage + dinner page + OpenTable bio) · <strong>Category:</strong> Communication / positioning</div>
+        <div class="rec-step-label">Ship within 30 days</div>
+        <div class="rec-step">Rewrite the homepage hero to lead with one line: "17 years with Alan Wong. Now in the kitchen at Basalt. We changed almost everything except the pancakes." Stack the 20% kamaʻāina line and a "we left the prime rib and the pancakes" subhead under it. Replace the generic interior shot with a Kosaka portrait above the pancake stack, plus a second shot of the prime rib at dinner. Name that the restaurant is full-service with reservations, not a food-hall counter. Push the same three sentences into OpenTable About copy and Google Business Profile so the chef-pedigree story shows up in AI search answers.</div>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="rec-num">2</div>
+      <div>
+        <div class="rec-name">Stand up a "Pancake-and-Photo" guest moment with a watermarked digital shot</div>
+        <div class="rec-evidence">
+          <span class="evidence-pill">Love · pancake is the peak</span>
+          <span class="evidence-pill">Press · "volcanolike" plating</span>
+          <span class="evidence-pill">Channel · email capture</span>
+          <span class="evidence-pill">Behavior · mere-exposure</span>
+        </div>
+        <div class="rec-meters"><strong>Effort:</strong> Mid · <strong>Impact:</strong> High · <strong>Where:</strong> On-experience (plating beat + server script + digital handoff) · <strong>Category:</strong> Photo / share-the-moment</div>
+        <div class="rec-step-label">Ship within 30 days</div>
+        <div class="rec-step">Train servers to offer "I can take the pancake shot for you, would you like it texted or emailed?" the second the plate lands. Print a small "@basaltwaikiki" tent card with the dish. Stand up a Zapier or Lightspeed integration that pushes a watermarked digital file within 24 hours. No print upsell in the first 30 days. Prove the email-capture lift first, then layer a $10 photo-bundle next quarter if conversion holds.</div>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="rec-num">3</div>
+      <div>
+        <div class="rec-name">Stack the Waikiki Walk-Up bundle: 20% kamaʻāina + happy hour + parking validation</div>
+        <div class="rec-evidence">
+          <span class="evidence-pill">Industry · dine-in down 20%</span>
+          <span class="evidence-pill">Press · Frolic best happy hour</span>
+          <span class="evidence-pill">Asset · parking validation</span>
+          <span class="evidence-pill">Behavior · pratfall trust</span>
+        </div>
+        <div class="rec-meters"><strong>Effort:</strong> Mid · <strong>Impact:</strong> Mid · <strong>Where:</strong> Pre-arrival (homepage + booking page + confirmation email) plus on-experience server framing · <strong>Category:</strong> Pricing + cadence + communication</div>
+        <div class="rec-step-label">Ship within 30 days</div>
+        <div class="rec-step">Add a "Walk-Up from the Hyatt Centric" block to the homepage and the contact page that names three things in one place: 20% kamaʻāina discount (rules + hours + ID required), bar-seating happy hour 2pm to 5pm with the $5 wagyu burger callout, complimentary self-parking validation. Pair with one sentence: "Three hours of parking, happy-hour pricing at the bar, and a kamaʻāina rate if you live here. We made the walk-up worth it." Push the bundle into the OpenTable Special Offers block and the confirmation-email template so it lands as care, not as a hidden charge.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Sources -->
+  <div class="sources">
+    <div class="section-head"><span class="ring"></span>Sources</div>
+    <div class="sources-group">
+      <h4>Reviews</h4>
+      <ul>
+        <li><a href="https://www.tripadvisor.com/Restaurant_Review-g60982-d12869574-Reviews-Basalt-Honolulu_Oahu_Hawaii.html">tripadvisor.com Basalt review page</a></li>
+        <li><a href="https://www.tripadvisor.com/ShowUserReviews-g60982-d12869574-r734361007-Basalt_Restaurant-Honolulu_Oahu_Hawaii.html">TripAdvisor SydneyS_k "Fabulous breakfast"</a></li>
+        <li><a href="https://www.tripadvisor.com/ShowUserReviews-g60982-d12869574-r730136710-Basalt_Restaurant-Honolulu_Oahu_Hawaii.html">TripAdvisor 584brucen "Great Happy Hour!"</a></li>
+        <li><a href="https://www.tripadvisor.co.nz/ShowUserReviews-g60982-d12869574-r574511646-Basalt-Honolulu_Oahu_Hawaii.html">TripAdvisor Tracey P "Dukes Lane Fantastic"</a></li>
+        <li><a href="https://www.tripadvisor.com/ShowUserReviews-g60982-d12869574-r806748496-Basalt-Honolulu_Oahu_Hawaii.html">TripAdvisor i_therefore_conclude "Charcoal buttermilk pancakes"</a></li>
+        <li><a href="https://www.opentable.com/r/basalt-restaurant-at-dukes-lane-market-and-eatery-honolulu-2">OpenTable Basalt page (4.7 of 5, 2,218+ reviews)</a></li>
+        <li><a href="https://www.yelp.com/biz/basalt-honolulu">Yelp Basalt page (2,026 reviews, direct fetch returned 403, cross-referenced via search summaries)</a></li>
+      </ul>
+    </div>
+    <div class="sources-group">
+      <h4>Reddit</h4>
+      <ul>
+        <li>No indexed direct mentions found across "Basalt" site:reddit.com and "best breakfast Waikiki" site:reddit.com. Low signal is the finding.</li>
+      </ul>
+    </div>
+    <div class="sources-group">
+      <h4>Blogs and press</h4>
+      <ul>
+        <li><a href="https://www.honolulumagazine.com/basalt-new-chef-lance-kosaka/">Honolulu Magazine: Basalt's new chef overhauls the menu (Mari Taketa)</a></li>
+        <li><a href="https://alohastatedaily.com/2025/06/26/basalt-waikiki-has-a-brand-new-menu-and-a-new-executive-chef/">Aloha State Daily: brand-new menu and new exec chef (June 2025)</a></li>
+        <li><a href="https://www.hinowdaily.com/2026/01/30/basalt-waikks-relaxed-local-gem/">HI Now: Waikīkī's relaxed local gem (January 2026)</a></li>
+        <li><a href="https://www.honolulumagazine.com/get-charcoal-pancakes-and-vegetable-piele-at-basalt/">Honolulu Magazine: Charcoal Pancakes and Vegetable Piele (2018, Catherine Toth Fox)</a></li>
+        <li><a href="https://www.honolulumagazine.com/15-happy-hour-basalt-waikiki/">Honolulu Magazine: $15 happy hour at Basalt</a></li>
+        <li><a href="http://www.mypointofheu.com/blog/reunited-through-food-chef-lance-kosaka-is-cooking-up-magic-at-basalt">Olena Heu My Point of Heu: Chef Lance Kosaka profile</a></li>
+        <li><a href="https://www.basaltwaikiki.com/lance-kosaka/">basaltwaikiki.com Lance Kosaka bio</a></li>
+      </ul>
+    </div>
+    <div class="sources-group">
+      <h4>YouTube</h4>
+      <ul>
+        <li><a href="https://www.youtube.com/watch?v=U_IeKax5puc">Basalt Waikiki brand channel: How to make our famous Charcoal Pancakes (recipe tutorial)</a></li>
+        <li><a href="https://www.hawaiinewsnow.com/2025/08/31/whats-cooking-basalt-waikiki-chef-revamps-menu-8th-anniversary/">Hawaiʻi News Now: What's Cooking, 8th-anniversary menu revamp segment</a></li>
+      </ul>
+    </div>
+    <div class="sources-group">
+      <h4>Industry context</h4>
+      <ul>
+        <li><a href="https://www.kitv.com/news/waikiki-restaurants-struggle-as-tourism-lags-and-costs-rise/article_21da5d04-8936-4f21-ae00-f9c0a57f2af1.html">KITV: Waikiki restaurants struggle (November 2025)</a></li>
+        <li><a href="https://www.hawaii-guide.com/blog/hawaii-q1-2026-visitor-spending-surge-summer-impact">Hawaii Guide: Q1 2026 visitor spending $4.17B, food and beverage growth</a></li>
+        <li><a href="https://www.hawaiitribune-herald.com/2025/07/22/hawaii-news/hawaiis-visitor-industry-looks-to-isle-residents-to-bolster-business/">Hawaiʻi Tribune-Herald: visitor industry looks to isle residents (July 2025)</a></li>
+        <li><a href="https://beatofhawaii.com/hawaii-restaurants-are-struggling-or-shuttering-entirely/">Beat of Hawaii: Hawaii restaurants struggling or shuttering</a></li>
+      </ul>
+    </div>
+    <div class="sources-group">
+      <h4>Comps</h4>
+      <ul>
+        <li><a href="https://www.goofy-honolulu.com/">Goofy Café &amp; Dine (locavore breakfast, "Local first, organic whenever possible")</a></li>
+        <li><a href="https://www.heavenly-waikiki.com/menu">Heavenly Island Lifestyle Waikiki menu page (Japanese-visitor-tuned breakfast)</a></li>
+        <li><a href="https://www.royyamaguchi.com/roys-waikiki-oahu">Roy's Waikiki (happy-hour menu posted plainly)</a></li>
+        <li><a href="https://www.yelp.com/biz/cinnamons-at-the-ilikai-honolulu-4">Cinnamon's at the ʻIlikai Yelp listing (now CLOSED)</a></li>
+        <li><a href="https://cinnamonswaikiki.com/">Cinnamon's at the ʻIlikai homepage</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    Powered by <a href="https://lightson.co">Lights On</a> · Built with the Hospitality Business Skills teammate · github.com/lightson-digital/hospitality-business-skills
+  </div>
+</body>
+</html>

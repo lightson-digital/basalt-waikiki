@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-Arrival Concierge · Basalt Waikiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --heading: #061b31;
+    --body: #273951;
+    --label: #273951;
+    --accent: #533afd;
+    --accent-soft: rgba(83, 58, 253, 0.08);
+    --accent-soft-2: rgba(83, 58, 253, 0.14);
+    --border: #e5edf5;
+    --border-soft: #f0f4f9;
+    --bg: #ffffff;
+    --surface: #fefefe;
+    --shadow-card: rgba(50,50,93,0.10) 0px 12px 20px 0px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-feature-settings: "ss01";
+    font-weight: 300;
+    font-size: 17px;
+    max-width: 1080px;
+    margin: 40px auto;
+    padding: 0 32px;
+    color: var(--heading);
+    background: var(--bg);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .stamp {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(83,58,253,0.08);
+  }
+  h1 {
+    font-size: 44px;
+    font-weight: 300;
+    letter-spacing: -1.2px;
+    line-height: 1.05;
+    margin: 0 0 4px;
+    color: var(--heading);
+  }
+  .deck {
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--body);
+    margin: 0 0 12px;
+    max-width: 760px;
+    line-height: 1.55;
+  }
+  .section-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .section-label .pillar-tag {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--body);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .section { margin-bottom: 64px; }
+
+  /* Upsell map - design centerpiece, revenue pillar */
+  .upsell-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .upsell-row {
+    display: grid;
+    grid-template-columns: 24px 1.2fr 2fr 100px 90px;
+    gap: 22px;
+    align-items: center;
+    padding: 20px 22px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+  }
+  .upsell-row .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin: 0 auto;
+  }
+  .upsell-row .vector {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--heading);
+    line-height: 1.4;
+  }
+  .upsell-row .what {
+    font-size: 16px;
+    color: var(--body);
+    line-height: 1.55;
+  }
+  .upsell-row .what .hook {
+    display: block;
+    margin-top: 8px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--label);
+    line-height: 1.55;
+  }
+  .upsell-row .meta {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+    text-align: right;
+    font-feature-settings: "tnum";
+  }
+  .upsell-row .meta .meta-label {
+    display: block;
+    font-weight: 400;
+    color: var(--body);
+    font-size: 10px;
+    margin-bottom: 2px;
+    letter-spacing: 0.12em;
+  }
+  .upsell-row .meta .where {
+    color: var(--accent);
+  }
+
+  /* Anxiety map - intentionally lower-key, operations pillar */
+  .anxiety-table {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    max-width: 880px;
+  }
+  .anxiety-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1.6fr 0.9fr 0.7fr;
+    gap: 18px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: center;
+  }
+  .anxiety-row:last-child { border-bottom: none; }
+  .anxiety-row .name {
+    font-size: 16px;
+    color: var(--heading);
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  .anxiety-row .impact {
+    font-size: 16px;
+    color: var(--body);
+    line-height: 1.55;
+  }
+  .anxiety-row .source {
+    font-size: 12px;
+    color: var(--body);
+    line-height: 1.4;
+    font-style: italic;
+  }
+  .anxiety-row .where {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: right;
+    font-feature-settings: "tnum";
+  }
+
+  /* 3-touch timeline */
+  .timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 14%;
+    right: 14%;
+    height: 1px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .touch {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .touch .marker {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    margin: 14px auto 0;
+  }
+  .touch .when {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: center;
+    font-feature-settings: "tnum";
+  }
+  .touch .envelope {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    position: relative;
+  }
+  .touch.featured .envelope {
+    box-shadow: var(--shadow-card);
+  }
+  .touch .upsell-tag {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .touch .subject {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--label);
+    line-height: 1.45;
+    margin-top: 8px;
+  }
+  .touch .pull {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--heading);
+    line-height: 1.6;
+  }
+  .touch .ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .touch .cta {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1.5;
+  }
+  .touch .cta.upsell::before {
+    content: "↗ ";
+    color: var(--accent);
+  }
+  .touch .cta.prep::before {
+    content: "→ ";
+    color: var(--body);
+  }
+
+  /* Service-flow recommendations */
+  .ideas {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+  .idea {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border-soft);
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 18px;
+    align-items: center;
+  }
+  .idea:last-child { border-bottom: none; }
+  .idea .num {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    font-feature-settings: "tnum";
+  }
+  .idea .text {
+    font-size: 16px;
+    color: var(--heading);
+    line-height: 1.55;
+  }
+  .idea .text .name {
+    font-weight: 400;
+  }
+  .idea .text .detail {
+    color: var(--body);
+    margin-top: 6px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .idea .pills {
+    display: flex;
+    gap: 8px;
+  }
+  .pill {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--label);
+    background: var(--bg);
+    white-space: nowrap;
+  }
+  .pill .pill-label {
+    color: var(--body);
+    margin-right: 4px;
+    font-weight: 400;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: #425466;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 760px) {
+    body { margin: 32px auto; padding: 0 20px; }
+    h1 { font-size: 32px; letter-spacing: -0.6px; }
+    .upsell-row { grid-template-columns: 1fr; gap: 10px; }
+    .upsell-row .dot { display: none; }
+    .upsell-row .meta { text-align: left; }
+    .anxiety-row { grid-template-columns: 1fr; gap: 6px; }
+    .anxiety-row .where { text-align: left; }
+    .timeline { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .idea { grid-template-columns: 1fr; gap: 10px; }
+    .footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="eyebrow">Pre-arrival · Concierge</div>
+  <h1>Basalt Waikiki</h1>
+  <p class="deck">Between the OpenTable booking and the first bite, two things matter. The dollars left on the table when the pancake, the pairing, and the kamaʻāina discount stay invisible. And the small worries (where to park, where the door is, is this a real restaurant) that turn a 4.7-star booking into a 3-star review. A 3-touch sequence (T-3day, T-24hr, T-2hr) carries both, in the hidden gem's own voice.</p>
+  <span class="stamp">Powered by Lights On · ran on 2026-05-11</span>
+
+  <!-- Section 1: Upsell map (revenue pillar, design centerpiece) -->
+  <div class="section">
+    <div class="section-label">Upsell map · top 3 opportunities <span class="pillar-tag">revenue pillar</span></div>
+    <div class="upsell-stack">
+      <div class="upsell-row">
+        <div class="dot"></div>
+        <div class="vector">Charcoal pancake "for the table" pre-order</div>
+        <div class="what">The 8-year hero dish, the only one that survived Chef Kosaka's 2025 menu redesign. Currently a breakfast plate. As a shared dinner dessert, it's a $20–22 attach at the moment of highest anticipation. The retail pancake-mix at Dukes Lane Market next door is the take-home version of the same upsell.<span class="hook">"The famous charcoal pancake also makes a wild shared dessert. Want one held for your table?"</span></div>
+        <div class="meta"><span class="meta-label">Where</span><span class="where">T-24hr</span></div>
+        <div class="meta"><span class="meta-label">Lift</span>Mid</div>
+      </div>
+      <div class="upsell-row">
+        <div class="dot"></div>
+        <div class="vector">Wine pairing / chef's bar pour at dinner</div>
+        <div class="what">The 2pm–5pm bar program has real Hawaiʻi press credibility (Frolic, Hawaiʻi News Now, Star Advertiser Pau Hana Patrol). Zero of that bar craft shows up inside the dinner reservation flow. A pre-add 3-pour pairing for the salmon chazuke risotto or the guava ribs, priced like a happy-hour pour, captures a check the kitchen leaves to walk-up choice.<span class="hook">"Pre-add a 3-pour pairing for your entrée. From the bar that runs the 2pm–5pm program."</span></div>
+        <div class="meta"><span class="meta-label">Where</span><span class="where">T-24hr</span></div>
+        <div class="meta"><span class="meta-label">Lift</span>Mid</div>
+      </div>
+      <div class="upsell-row">
+        <div class="dot"></div>
+        <div class="vector">Kamaʻāina discount verification at booking, not at the table</div>
+        <div class="what">The 20% kamaʻāina discount (first ever, launched July 2025) is surfaced after seating, which means OpenTable bookers don't know it exists and kamaʻāina guests fumble for ID at the table. Verifying once at T-3day is a loyalty-conversion play, not a discount giveaway. The chef's Honolulu pedigree (Iolani, Alan Wong, Mariposa) is the reason locals book; the discount is the reason they come back.<span class="hook">"Kamaʻāina? Drop your ID once now and your table is set with the 20% applied. No fumbling at the table."</span></div>
+        <div class="meta"><span class="meta-label">Where</span><span class="where">T-3day</span></div>
+        <div class="meta"><span class="meta-label">Lift</span>High</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Anxiety map (operations pillar) -->
+  <div class="section">
+    <div class="section-label">Anxiety map · 4 rows <span class="pillar-tag">operations pillar</span></div>
+    <div class="anxiety-table">
+      <div class="anxiety-row">
+        <div class="name">"Is it a real restaurant or a food-hall stall?"</div>
+        <div class="impact">Six of seven Dukes Lane tenants are counter-service. Basalt is the only full-service room. Guests arrive expecting a stall and either feel relieved or fumble the seating moment.</div>
+        <div class="source">TripAdvisor 4.4 / 445 reviews (#19 of 1,749 Honolulu), Frolic Hawaii 2018 launch coverage</div>
+        <div class="where">T-3day</div>
+      </div>
+      <div class="anxiety-row">
+        <div class="name">Hyatt Centric parking validation (not free)</div>
+        <div class="impact">Validation only works if the diner asks the server. Yelp and Google threads show repeated "I paid $20 and was told after that it was validated" complaints. Surface the validation flow before they arrive.</div>
+        <div class="source">basaltwaikiki.com/contact (validation language), recurring Yelp + Google review pattern</div>
+        <div class="where">T-24hr</div>
+      </div>
+      <div class="anxiety-row">
+        <div class="name">"Where is the entrance?"</div>
+        <div class="impact">Door is on the Kūhiō / Dukes Lane corner inside the food hall, not on Kalākaua. TripAdvisor reviews 2024–2025 mention guests circling Kalākaua looking for a non-existent storefront. A map pin at T-24hr solves it.</div>
+        <div class="source">TripAdvisor reviews 2024–2025, basaltwaikiki.com/contact address (2255 Kūhiō)</div>
+        <div class="where">T-24hr</div>
+      </div>
+      <div class="anxiety-row">
+        <div class="name">"Will the menu still be good after the 2025 chef change?"</div>
+        <div class="impact">Chef Lance Kosaka changed "mostly everything except the pancakes" (April 2025). Repeat guests booking on past press are anxious favorites are gone. First-time guests reading older reviews think it's a different restaurant. Reframe at T-3day.</div>
+        <div class="source">Honolulu Magazine 2025, Star Advertiser 2025, Frolic 2025 menu-redesign coverage</div>
+        <div class="where">T-3day</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: 3-touch timeline -->
+  <div class="section">
+    <div class="section-label">3-touch sequence · upsell + reframe, then logistics, then go</div>
+    <div class="timeline">
+      <div class="touch featured">
+        <div class="marker"></div>
+        <div class="when">T-3 days</div>
+        <div class="envelope">
+          <div class="upsell-tag">Upsell window</div>
+          <div class="subject">Your table at Basalt on [date]. A few notes from the hidden gem.</div>
+          <div class="pull">"You're booked with us on [date], and we're glad you found us. Quick heads up: we're the full sit-down inside Dukes Lane Market, not a counter. The charcoal pancake from the press is still on the menu (Chef Lance kept it when he redid almost everything else last year), and it also runs as a wild shared dessert if you want one held for your table. If you're kamaʻāina, drop your ID once now and we'll set your table with the 20% applied."</div>
+          <div class="ctas">
+            <div class="cta upsell">Hold a charcoal pancake for the table · $20</div>
+            <div class="cta upsell">Verify kamaʻāina ID once, table set with 20%</div>
+            <div class="cta prep">What's on the new menu, what's still here from before</div>
+          </div>
+        </div>
+      </div>
+      <div class="touch">
+        <div class="marker"></div>
+        <div class="when">T-24 hours</div>
+        <div class="envelope">
+          <div class="subject">See you tomorrow at Basalt. Where to park, where the door is.</div>
+          <div class="pull">"Tomorrow at [time]. Park in the Hyatt Centric garage on Kūhiō, bring your ticket to your server, we validate it (free). The entrance is on the Kūhiō / Dukes Lane corner inside the food hall, not on Kalākaua, so the map pin below is the one to follow. If you'd like, pre-add a 3-pour pairing from the bar program for your entrée."</div>
+          <div class="ctas">
+            <div class="cta upsell">Pre-add a 3-pour wine pairing · $24</div>
+            <div class="cta prep">Open the door pin · Hyatt Centric parking validation</div>
+          </div>
+        </div>
+      </div>
+      <div class="touch">
+        <div class="marker"></div>
+        <div class="when">T-2 hours</div>
+        <div class="envelope">
+          <div class="subject">Tonight at Basalt. Your table is set.</div>
+          <div class="pull">"We're on for tonight at [time]. Smart casual works, no jacket needed. Door is on the Kūhiō / Dukes Lane corner. If you can't find us or you're running late, call (808) 923-5689. And if the pancake makes the trip home with you, the retail mix is next door at Dukes Lane Market until 11pm."</div>
+          <div class="ctas">
+            <div class="cta upsell">Pancake mix retail, next door at Dukes Lane Market</div>
+            <div class="cta prep">Open the door pin · day-of phone (808) 923-5689</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: 3 service-flow upgrades -->
+  <div class="section">
+    <div class="section-label">3 service-flow upgrades to ship into the booking flow</div>
+    <div class="ideas">
+      <div class="idea">
+        <div class="num">01</div>
+        <div class="text"><span class="name">Add an OpenTable special-request menu with three pre-set add-ons</span><div class="detail">Wire three line items into the OpenTable reservation: "Hold a charcoal pancake for the table," "Pre-add a 3-pour wine pairing for entrées," and "I'm kamaʻāina, here's my ID." Captures all three upsells at the moment of highest commitment, no email needed for the first conversion.</div></div>
+        <div class="pills">
+          <span class="pill"><span class="pill-label">Effort</span>Low</span>
+          <span class="pill"><span class="pill-label">Impact</span>High</span>
+        </div>
+      </div>
+      <div class="idea">
+        <div class="num">02</div>
+        <div class="text"><span class="name">Pre-arrival "Finding Basalt + what to expect" landing page</span><div class="detail">One URL on basaltwaikiki.com, linked from every OpenTable confirmation and email touch. Covers the Kūhiō-corner entrance pin, the Hyatt Centric parking validation flow, "we're full-service, not a stall," dress code (smart casual), kid policy, allergens-by-dish, and the kamaʻāina discount terms. Replaces 80% of inbound phone questions on (808) 923-5689.</div></div>
+        <div class="pills">
+          <span class="pill"><span class="pill-label">Effort</span>Low</span>
+          <span class="pill"><span class="pill-label">Impact</span>Mid</span>
+        </div>
+      </div>
+      <div class="idea">
+        <div class="num">03</div>
+        <div class="text"><span class="name">T-2hr SMS with parking pin, entrance pin, and the Dukes Lane Market retail link</span><div class="detail">Two-line SMS sent 2 hours before the seating. Confirms tonight, drops the parking pin and the Kūhiō-corner door pin in one tap, and links the pancake-mix retail next door at Dukes Lane Market. Doubles as the take-home brand re-fire 6 months later when the guest cooks the mix on the mainland.</div></div>
+        <div class="pills">
+          <span class="pill"><span class="pill-label">Effort</span>Mid</span>
+          <span class="pill"><span class="pill-label">Impact</span>Mid</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Built with the Hospitality Business Skills teammate · github.com/lightson-digital/hospitality-business-skills</span>
+    <a href="https://lightson.co" target="_blank" rel="noopener">Powered by Lights On</a>
+  </div>
+
+</body>
+</html>
