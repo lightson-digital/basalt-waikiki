@@ -1,6 +1,6 @@
 ## Findability Check, Basalt Waikiki (paste into your AI project memory)
 
-*Pre-Demo Backup · 2026-05-11*
+*Powered by Lights On · ran on 2026-05-11*
 
 - **5-prompt visibility:** 3 named, 2 category-only/buried, 0 absent. Branded query: ✓ (clean entity, but the charcoal pancake gets cited more than the brand name in AI synthesis).
 - **Top competitor cited where you weren't:** Aloha Kitchen, Cinnamon's at the Ilikai (breakfast lane). Duke's Waikiki, Hula Grill, Sky Waikiki (happy hour lane). Roy's, Senia, Kapa Hale (chef-driven dinner lane).

@@ -1,6 +1,6 @@
 ## Booking Edge, Basalt Waikiki (paste into your AI project memory)
 
-*Pre-Demo Backup, 2026-05-11*
+*Powered by Lights On · ran on 2026-05-11*
 
 **Rating snapshot:**
 - OpenTable: 4.7 of 5, 2,218+ reviews. Diners' Choice.
